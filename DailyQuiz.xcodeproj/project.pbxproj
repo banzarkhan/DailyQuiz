@@ -10,9 +10,22 @@
 		5465E85E2E3CDE970067D85F /* DailyQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5465E87A2E3D09B80067D85F /* Exceptions for "DailyQuiz" folder in "DailyQuiz" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 5465E85D2E3CDE970067D85F /* DailyQuiz */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		5465E8602E3CDE970067D85F /* DailyQuiz */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5465E87A2E3D09B80067D85F /* Exceptions for "DailyQuiz" folder in "DailyQuiz" target */,
+			);
 			path = DailyQuiz;
 			sourceTree = "<group>";
 		};
