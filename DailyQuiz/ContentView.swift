@@ -7,6 +7,14 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Hello, world!")
+                .font(.interBold24)
+            
+            Button("FFFF") {
+                
+            }
+            .mainButtonStyle(state: .startAgain)
+            
+            QuizOptionButton(text: "Option 1", state: .correct, action: {})
         }
         .padding()
     }
