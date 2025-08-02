@@ -8,7 +8,9 @@ extension Font {
     static let interBold16:     Font = .custom(InterWeight.bold.rawValue, size: 16)
     static let interBlack16:    Font = .custom(InterWeight.black.rawValue, size: 16)
     static let interSemiBold18: Font = .custom(InterWeight.semibold.rawValue, size: 18)
+    static let interBold20:     Font = .custom(InterWeight.bold.rawValue, size: 20)
     static let interBold24:     Font = .custom(InterWeight.bold.rawValue, size: 24)
+    static let interBold28:     Font = .custom(InterWeight.bold.rawValue, size: 28)
 }
 
 enum InterWeight: String {
