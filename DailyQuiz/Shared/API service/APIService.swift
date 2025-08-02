@@ -4,9 +4,7 @@ struct APIService {
     
     static let shared = APIService()
     
-    func fetchQuestions(amount: Int = 10, category: Int? = nil, difficulty: String? = nil) -> [Question] {
-        var result: [Question] = []
-        
+    func fetchQuestions(amount: Int = 10, category: Int? = nil, difficulty: String? = nil) async throws -> [Question] {
         var urlString = "https://opentdb.com/api.php?amount=\(amount)"
         if let category = category {
             urlString += "&category=\(category)"
@@ -16,20 +14,12 @@ struct APIService {
         }
         
         guard let url = URL(string: urlString) else {
-            print("❌ Invalid URL")
-            return result
+            throw URLError(.badURL)
         }
         
-        Task {
-            do {
-                let (data, _) = try await URLSession.shared.data(from: url)
-                let decoded = try JSONDecoder().decode(ApiQuestionsResponse.self, from: data)
-                result = decoded.results.map { $0.toQuestion() }
-                
-            } catch {
-                print("❌ Error fetching questions: \(error)")
-            }
-        }
-        return result
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let decoded = try JSONDecoder().decode(ApiQuestionsResponse.self, from: data)
+        return decoded.results.map { $0.toQuestion() }
     }
+
 }
