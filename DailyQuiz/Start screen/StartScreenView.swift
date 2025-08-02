@@ -41,7 +41,7 @@ struct StartScreenView: View {
     var historyButton: some View {
         HStack(spacing: 12) {
             Text("История")
-                .font(.interSemiBold12)
+                .interSemiBold(12)
                 .foregroundStyle(.purpleAccent)
             Image(.history)
                 .resizable()
