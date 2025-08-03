@@ -8,7 +8,9 @@ struct QuizListView: View {
             VStack(spacing: 24) {
                 ForEach(Array(viewModel.quizzes.enumerated()), id: \.element.id) { index, quiz in
                     NavigationLink {
-                        ReviewResultsView(quiz: quiz, action: {})
+                        ReviewResultsView(quiz: quiz, action: {
+                            viewModel.startAgainTapped(quiz: quiz)
+                        })
                             .navigationBarBackButtonHidden()
                     } label: {
                         quizRow(quiz, title: "Quiz \(index + 1)")
@@ -46,6 +48,7 @@ extension QuizListView {
                 Text(quiz.date.formattedTime())
             }
             .interRegular()
+            .foregroundStyle(.black)
         }
         .padding(.horizontal, 24)
         .whiteRoundedBackground(cornerRadius: 40)
