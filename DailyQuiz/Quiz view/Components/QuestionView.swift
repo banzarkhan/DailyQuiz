@@ -2,8 +2,9 @@ import SwiftUI
 
 struct QuestionView: View {
     var questionNumber: Int
-    var question: Question
-    @State var selectedAnswer: Answer?
+    @Binding var question: Question
+    var action: () -> Void
+    @State var buttonState: MainButtonState = .disabled
     
     var body: some View {
         VStack(spacing: 65) {
@@ -17,16 +18,23 @@ struct QuestionView: View {
                     .multilineTextAlignment(.center)
                 VStack(spacing: 16) {
                     ForEach(question.answers) { answer in
-                        QuizOptionButton(text: answer.text, state: answer == selectedAnswer ? .selected : .idle) {
-                            selectedAnswer = answer
+                        QuizOptionButton(text: answer.text, state: answer.id == question.selectedAnswerId ? .selected : .idle) {
+                            question.selectedAnswerId = answer.id
                         }
                     }
                 }
             }
             Button(questionNumber == 5 ? "Завершить" : "Далее") {
-                
+                action()
             }
-            .mainButtonStyle(state: .disabled)
+            .mainButtonStyle(state: buttonState)
+        }
+        .onChange(of: question.selectedAnswerId) { newValue in
+            if newValue != nil {
+                buttonState = .main
+            } else {
+                buttonState = .disabled
+            }
         }
         .padding(.horizontal, 30)
         .whiteRoundedBackground()

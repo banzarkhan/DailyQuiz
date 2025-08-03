@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct QuizView: View {
-    var question: Question = Question(id: UUID(), category: "HHHH", type: "hhhh", difficulty: "hkjjkhj", question: "jhkhkhkhkhj", answers: [
-        Answer(id: UUID(), text: "jkljkjkjljk", isCorrect: false),
-        Answer(id: UUID(), text: "hhhhhhhhh", isCorrect: false),
-        Answer(id: UUID(), text: "PPPPPPPPPP", isCorrect: true),
-        Answer(id: UUID(), text: "ddddddddd", isCorrect: false),
-    ])
+    @Environment(\.dismiss) var dismiss
+    @StateObject var viewModel: QuizViewModel
+    
+    init(quiz: Quiz) {
+        _viewModel = StateObject(wrappedValue: QuizViewModel(quiz: quiz))
+    }
     
     var body: some View {
         ZStack {
@@ -15,9 +15,12 @@ struct QuizView: View {
                 Spacer()
             }
             VStack(spacing: 16) {
-                QuestionView(questionNumber: 1, question: question)
+                QuestionView(questionNumber: viewModel.questionNumber, question: $viewModel.quiz.questions[viewModel.currentQuestionIndex]) {
+                    viewModel.handleButtonTap()
+                }
                 Text("Вернуться к предыдущим вопросам нельзя")
                     .interRegular()
+                    .foregroundStyle(.white)
             }
         }
         .padding()
@@ -28,7 +31,7 @@ struct QuizView: View {
         ZStack {
             HStack {
                 Button {
-                    
+                    dismiss()
                 } label: {
                     Image(systemName: "chevron.left")
                         .foregroundStyle(.white)
@@ -42,8 +45,4 @@ struct QuizView: View {
                 .frame(width: 180)
         }
     }
-}
-
-#Preview {
-    QuizView()
 }

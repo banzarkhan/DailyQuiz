@@ -2,8 +2,10 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            StartScreenView()
+        NavigationStack {
+            VStack {
+                StartScreenView()
+            }
         }
     }
 }

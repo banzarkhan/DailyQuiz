@@ -1,7 +1,7 @@
 import SwiftUI
 
 final class StartScreenViewModel: ObservableObject {
-    @Published var questions: [Question] = []
+    @Published var quiz = Quiz()
     
     @Published var startQuiz: Bool = false
     @Published var goToHistory: Bool = false
@@ -17,10 +17,10 @@ final class StartScreenViewModel: ObservableObject {
             do {
                 let questions = try await apiService.fetchQuestions(amount: 5, category: 23, difficulty: "medium")
                 await MainActor.run {
-                    self.questions = questions
+                    self.quiz.questions = questions
                     self.isLoading = false
                     self.startQuiz = true
-                    print(self.questions)
+                    print(self.quiz)
                 }
             } catch {
                 await MainActor.run {

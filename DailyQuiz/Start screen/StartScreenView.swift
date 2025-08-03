@@ -34,7 +34,8 @@ struct StartScreenView: View {
         .padding()
         .background(.purpleAccent)
         .navigationDestination(isPresented: $viewModel.startQuiz) {
-            
+            QuizView(quiz: viewModel.quiz)
+                .navigationBarBackButtonHidden()
         }
     }
     

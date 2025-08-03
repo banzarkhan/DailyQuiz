@@ -8,4 +8,5 @@ struct Question: Identifiable {
     var difficulty: String
     var question: String
     var answers: [Answer]
+    var selectedAnswerId: UUID?
 }
