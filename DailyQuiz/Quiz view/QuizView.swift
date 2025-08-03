@@ -4,8 +4,8 @@ struct QuizView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: QuizViewModel
     
-    init(quiz: Quiz) {
-        _viewModel = StateObject(wrappedValue: QuizViewModel(quiz: quiz))
+    init(quiz: Quiz, state: QuizViewState = .quiz) {
+        _viewModel = StateObject(wrappedValue: QuizViewModel(quiz: quiz, state: state))
     }
     
     var body: some View {
@@ -14,14 +14,20 @@ struct QuizView: View {
                 headerView
                 Spacer()
             }
-            VStack(spacing: 16) {
-                QuestionView(questionNumber: viewModel.questionNumber, question: $viewModel.quiz.questions[viewModel.currentQuestionIndex]) {
-                    viewModel.handleButtonTap()
+            switch viewModel.viewState {
+            case .quiz, .startAgain:
+                VStack(spacing: 16) {
+                    QuestionView(questionNumber: viewModel.questionNumber, question: $viewModel.quiz.questions[viewModel.currentQuestionIndex]) {
+                        viewModel.handleButtonTap()
+                    }
+                    Text("Вернуться к предыдущим вопросам нельзя")
+                        .interRegular()
+                        .foregroundStyle(.white)
                 }
-                Text("Вернуться к предыдущим вопросам нельзя")
-                    .interRegular()
-                    .foregroundStyle(.white)
+            case .result:
+                EndQuizView(viewModel: viewModel)
             }
+            
         }
         .padding()
         .background(.purpleAccent)
@@ -39,10 +45,16 @@ struct QuizView: View {
                 }
                 Spacer()
             }
-            Image(.logo)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 180)
+            if viewModel.viewState == .result {
+                Text("Результаты")
+                    .interBlack(32)
+                    .foregroundStyle(.white)
+            } else {
+                Image(.logo)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 180)
+            }
         }
     }
 }
