@@ -19,7 +19,6 @@ final class StartScreenViewModel: ObservableObject {
                     self.quiz.questions = questions
                     self.isLoading = false
                     self.startQuiz = true
-                    print(self.quiz)
                 }
             } catch {
                 await MainActor.run {

@@ -32,9 +32,6 @@ final class QuizViewModel: ObservableObject {
         
         quiz.date = Date()
         
-        print("WE ARE IN UPSERT QUIZ")
-        print(viewState)
-        
         Task {
             switch viewState {
             case .quiz:
@@ -58,7 +55,6 @@ final class QuizViewModel: ObservableObject {
             let newQuiz = dataManager.createEntity(ofType: QuizEntity.self)
             newQuiz.create(from: quiz)
             try dataManager.saveEntity(newQuiz)
-            print("Successfully saved quiz! with id: \(String(describing: newQuiz.id))")
             
             await MainActor.run {
                 self.viewState = .result
