@@ -15,6 +15,7 @@ struct ReviewResultsView: View {
             ScrollView {
                 VStack(spacing: 36) {
                     ResultView(quiz: quiz)
+                        .padding(.horizontal, 30)
                         .whiteRoundedBackground()
                     VStack(spacing: 24) {
                         Text("Твои ответы")
