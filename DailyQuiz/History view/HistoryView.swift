@@ -10,7 +10,7 @@ struct HistoryView: View {
                     .interBlack(32)
                     .foregroundStyle(.white)
             }
-            .padding()
+            .padding(.horizontal)
             if viewModel.quizzes.isEmpty {
                 placeholder
                     .padding()
@@ -19,7 +19,7 @@ struct HistoryView: View {
             }
         }
         .navigationDestination(isPresented: $viewModel.startQuiz, destination: {
-            QuizView(quiz: viewModel.quiz)
+            QuizView(quiz: viewModel.quiz, state: viewModel.quizState)
                 .navigationBarBackButtonHidden()
                 .onDisappear {
                     Task {

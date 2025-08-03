@@ -7,16 +7,23 @@ struct QuizListView: View {
         ScrollView {
             VStack(spacing: 24) {
                 ForEach(Array(viewModel.quizzes.enumerated()), id: \.element.id) { index, quiz in
-                    quizRow(quiz, title: "Quiz \(index + 1)")
-                        .contextMenu {
-                            Button(role: .destructive) {
-                                Task {
-                                    await viewModel.deleteQuiz(quiz)
+                    NavigationLink {
+                        ReviewResultsView(quiz: quiz, action: {
+                            viewModel.startAgainTapped(quiz: quiz)
+                        })
+                            .navigationBarBackButtonHidden()
+                    } label: {
+                        quizRow(quiz, title: "Quiz \(index + 1)")
+                            .contextMenu {
+                                Button(role: .destructive) {
+                                    Task {
+                                        await viewModel.deleteQuiz(quiz)
+                                    }
+                                } label: {
+                                    Label("Удалить", systemImage: "trash")
                                 }
-                            } label: {
-                                Label("Удалить", systemImage: "trash")
                             }
-                        }
+                    }
                 }
             }
             .padding()
@@ -41,6 +48,7 @@ extension QuizListView {
                 Text(quiz.date.formattedTime())
             }
             .interRegular()
+            .foregroundStyle(.black)
         }
         .padding(.horizontal, 24)
         .whiteRoundedBackground(cornerRadius: 40)

@@ -3,6 +3,7 @@ import SwiftUI
 final class HistoryViewModel: ObservableObject {
     @Published var quizzes: [Quiz] = []
     @Published var quiz = Quiz()
+    @Published var quizState: QuizViewState = .quiz
     
     @Published var alertMessage: AlertMessage = .init(title: "", message: "", buttonLabel: "")
     @Published var showAlert: Bool = false
@@ -48,6 +49,17 @@ final class HistoryViewModel: ObservableObject {
         } catch {
             print("Error deleting quiz")
         }
+    }
+    
+    func startAgainTapped(quiz: Quiz) {
+        self.quizState = .startAgain
+        self.quiz = quiz
+        self.quiz.questions = quiz.questions.map { question in
+            var updatedQuestion = question
+            updatedQuestion.selectedAnswerId = nil
+            return updatedQuestion
+        }
+        startQuiz = true
     }
     
     func startQuizTapped() {
