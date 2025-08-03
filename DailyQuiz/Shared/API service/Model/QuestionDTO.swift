@@ -13,7 +13,8 @@ extension QuestionDTO {
     func toQuestion() -> Question {
         
         var answers: [Answer] = []
-        answers.append(Answer(id: UUID(), text: correct_answer.decodeHTMLEntities(), isCorrect: true))
+        let correctAnswer = Answer(id: UUID(), text: correct_answer.decodeHTMLEntities(), isCorrect: true)
+        answers.append(correctAnswer)
         answers.append(contentsOf: incorrect_answers.map { text in
                 .init(id: UUID(), text: text.decodeHTMLEntities(), isCorrect: false)
         })
@@ -26,7 +27,8 @@ extension QuestionDTO {
             type: type,
             difficulty: difficulty,
             question: question.decodeHTMLEntities(),
-            answers: answers
+            answers: answers,
+            correctAnswerId: correctAnswer.id
         )
     }
 }
