@@ -8,7 +8,7 @@ struct QuizListView: View {
             VStack(spacing: 24) {
                 ForEach(Array(viewModel.quizzes.enumerated()), id: \.element.id) { index, quiz in
                     NavigationLink {
-                        ReviewResultsView(quiz: quiz, action: {
+                        ReviewResultsView(quiz: quiz, title: "Обзор", action: {
                             viewModel.startAgainTapped(quiz: quiz)
                         })
                             .navigationBarBackButtonHidden()

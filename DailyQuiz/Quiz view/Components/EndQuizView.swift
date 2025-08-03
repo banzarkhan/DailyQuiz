@@ -2,17 +2,30 @@ import SwiftUI
 
 struct EndQuizView: View {
     @ObservedObject var viewModel: QuizViewModel
+    @State var showResults: Bool = false
     
     var body: some View {
-        VStack(spacing: 64) {
-            ResultView(quiz: viewModel.quiz)
-            
-            Button("Начать заново") {
-                viewModel.resetQuizAndStartOver()
+        if showResults {
+            ReviewResultsView(quiz: viewModel.quiz, action: viewModel.resetQuizAndStartOver)
+        } else {
+            VStack {
+                VStack(spacing: 64) {
+                    ResultView(quiz: viewModel.quiz)
+                        .onTapGesture {
+                            withAnimation {
+                                showResults = true
+                            }
+                        }
+                    
+                    Button("Начать заново") {
+                        viewModel.resetQuizAndStartOver()
+                    }
+                    .mainButtonStyle(state: .main)
+                }
+                .padding(.horizontal, 24)
+                .whiteRoundedBackground()
             }
-            .mainButtonStyle(state: .main)
+            .padding(.horizontal)
         }
-        .padding(.horizontal, 24)
-        .whiteRoundedBackground()
     }
 }
