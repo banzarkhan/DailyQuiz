@@ -22,6 +22,7 @@ struct QuizView: View {
                             .frame(width: 180)
                     }
                 }
+                .padding(.horizontal)
                 Spacer()
             }
             switch viewModel.viewState {
@@ -34,12 +35,12 @@ struct QuizView: View {
                         .interRegular()
                         .foregroundStyle(.white)
                 }
+                .padding(.horizontal)
             case .result:
                 EndQuizView(viewModel: viewModel)
             }
             
         }
-        .padding()
         .background(.purpleAccent)
     }
 }

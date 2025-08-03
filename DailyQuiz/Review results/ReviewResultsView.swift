@@ -2,12 +2,13 @@ import SwiftUI
 
 struct ReviewResultsView: View {
     @State var quiz: Quiz
+    var title: String = "Результаты"
     var action: () -> Void
     
     var body: some View {
         VStack {
             HeaderView {
-                Text("Результаты")
+                Text(title)
                     .interBold(32)
                     .foregroundStyle(.white)
             }
