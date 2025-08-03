@@ -5,7 +5,7 @@ struct MainButtonStyle: ButtonStyle {
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.interBlack16)
+            .interBlack(16)
             .textCase(.uppercase)
             .foregroundColor(state.textColor)
             .frame(width: 280, height: 50)

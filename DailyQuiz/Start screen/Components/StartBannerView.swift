@@ -8,7 +8,7 @@ struct StartBannerView: View {
         VStack(spacing: 24) {
             VStack(spacing: 40) {
                 Text("Добро пожаловать в DailyQuiz")
-                    .font(.interBold28)
+                    .interBold(28)
                     .multilineTextAlignment(.center)
                 
                 Button("Начать викторину") {
@@ -19,7 +19,7 @@ struct StartBannerView: View {
             .whiteRoundedBackground()
             if isError {
                 Text("Ошибка! Попробуйте ещё раз")
-                    .font(.interBold20)
+                    .interBold(20)
                     .foregroundStyle(.white)
             }
         }

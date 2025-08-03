@@ -5,7 +5,7 @@ struct QuizOptionButtonStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.interRegular14)
+            .interRegular(14)
             .foregroundColor(state.textColor)
             .padding()
             .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)

@@ -34,14 +34,15 @@ struct StartScreenView: View {
         .padding()
         .background(.purpleAccent)
         .navigationDestination(isPresented: $viewModel.startQuiz) {
-            
+            QuizView(quiz: viewModel.quiz)
+                .navigationBarBackButtonHidden()
         }
     }
     
     var historyButton: some View {
         HStack(spacing: 12) {
             Text("История")
-                .font(.interSemiBold12)
+                .interSemiBold(12)
                 .foregroundStyle(.purpleAccent)
             Image(.history)
                 .resizable()
