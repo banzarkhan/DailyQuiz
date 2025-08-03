@@ -6,8 +6,8 @@ struct QuizListView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 24) {
-                ForEach(viewModel.quizzes) { quiz in
-                    quizRow(quiz)
+                ForEach(Array(viewModel.quizzes.enumerated()), id: \.element.id) { index, quiz in
+                    quizRow(quiz, title: "Quiz \(index + 1)")
                         .contextMenu {
                             Button(role: .destructive) {
                                 Task {
@@ -26,19 +26,19 @@ struct QuizListView: View {
 
 extension QuizListView {
     @ViewBuilder
-    private func quizRow(_ quiz: Quiz) -> some View {
+    private func quizRow(_ quiz: Quiz, title: String) -> some View {
         VStack(spacing: 12) {
             HStack {
-                Text("Quiz 1")
+                Text(title)
                     .interBold(24)
                     .foregroundStyle(.purplePrimaryDark)
                 Spacer()
                 StarsView(result: quiz.result, starSize: 16)
             }
             HStack {
-                Text("7 июля")
+                Text(quiz.date.formattedWithoutYearIfCurrent())
                 Spacer()
-                Text("12:07")
+                Text(quiz.date.formattedTime())
             }
             .interRegular()
         }

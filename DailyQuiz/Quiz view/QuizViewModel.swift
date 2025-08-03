@@ -30,6 +30,8 @@ final class QuizViewModel: ObservableObject {
     private func upsertQuiz() {
         guard .quiz == viewState || .startAgain == viewState else { return }
         
+        quiz.date = Date()
+        
         Task {
             switch viewState {
             case .quiz:

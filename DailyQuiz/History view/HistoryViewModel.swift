@@ -14,15 +14,20 @@ final class HistoryViewModel: ObservableObject {
     
     func fetchQuizzes() async {
         do {
-            let fetchedQuizzes = try dataManager.fetchEntities(ofType: QuizEntity.self)
-            
+            let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+            let fetchedQuizzes = try dataManager.fetchEntities(
+                ofType: QuizEntity.self,
+                sortDescriptors: [sortDescriptor]
+            )
+
             await MainActor.run {
-                self.quizzes = fetchedQuizzes.map { $0.toModel()}
+                self.quizzes = fetchedQuizzes.map { $0.toModel() }
             }
         } catch {
             print("No quizzes found")
         }
     }
+
     
     func deleteQuiz(_ quiz: Quiz) async {
         do {
