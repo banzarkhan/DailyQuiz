@@ -3,6 +3,7 @@ import SwiftUI
 struct QuizOptionButton: View {
     var text: String
     var state: QuizOptionState
+    var disabled: Bool = false
     var action: () -> Void = {}
     
     var body: some View {
@@ -16,5 +17,6 @@ struct QuizOptionButton: View {
             }
         }
         .quizButtonStyle(state: state)
+        .disabled(disabled)
     }
 }
