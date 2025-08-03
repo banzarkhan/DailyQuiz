@@ -9,4 +9,5 @@ struct Question: Identifiable {
     var question: String
     var answers: [Answer]
     var selectedAnswerId: UUID?
+    var correctAnswerId: UUID
 }
