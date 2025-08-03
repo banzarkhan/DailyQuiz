@@ -7,7 +7,8 @@ struct StartScreenView: View {
         ZStack {
             VStack {
                 NavigationLink {
-                    
+                    HistoryView()
+                        .navigationBarBackButtonHidden()
                 } label: {
                     historyButton
                         .padding(.top, 30)

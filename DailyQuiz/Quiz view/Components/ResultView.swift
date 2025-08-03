@@ -1,16 +1,11 @@
 import SwiftUI
 
 struct ResultView: View {
-    var quiz = Quiz(result: 3)
+    var quiz: Quiz
     
     var body: some View {
             VStack(spacing: 24) {
-                HStack {
-                    ForEach(0..<5, id: \.self) { index in
-                        let result = Array(0..<quiz.result)
-                        Image(result.contains(index) ? .starFilled : .starEmpty)
-                    }
-                }
+                StarsView(result: quiz.result)
                 
                 Text("\(quiz.result) из 5")
                     .interBold(16)
@@ -25,8 +20,4 @@ struct ResultView: View {
                 }
             }
     }
-}
-
-#Preview {
-    ResultView()
 }
