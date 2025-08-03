@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct QuizView: View {
-    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: QuizViewModel
     
     init(quiz: Quiz, state: QuizViewState = .quiz) {
@@ -11,7 +10,18 @@ struct QuizView: View {
     var body: some View {
         ZStack {
             VStack {
-                headerView
+                HeaderView {
+                    if viewModel.viewState == .result {
+                        Text("Результаты")
+                            .interBlack(32)
+                            .foregroundStyle(.white)
+                    } else {
+                        Image(.logo)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 180)
+                    }
+                }
                 Spacer()
             }
             switch viewModel.viewState {
@@ -31,30 +41,5 @@ struct QuizView: View {
         }
         .padding()
         .background(.purpleAccent)
-    }
-    
-    var headerView: some View {
-        ZStack {
-            HStack {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .foregroundStyle(.white)
-                        .frame(width: 24, height: 24)
-                }
-                Spacer()
-            }
-            if viewModel.viewState == .result {
-                Text("Результаты")
-                    .interBlack(32)
-                    .foregroundStyle(.white)
-            } else {
-                Image(.logo)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 180)
-            }
-        }
     }
 }

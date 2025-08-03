@@ -4,7 +4,6 @@ final class StartScreenViewModel: ObservableObject {
     @Published var quiz = Quiz()
     
     @Published var startQuiz: Bool = false
-    @Published var goToHistory: Bool = false
     @Published var isLoading: Bool = false
     @Published var showError: Bool = false
     
@@ -20,7 +19,6 @@ final class StartScreenViewModel: ObservableObject {
                     self.quiz.questions = questions
                     self.isLoading = false
                     self.startQuiz = true
-                    print(self.quiz)
                 }
             } catch {
                 await MainActor.run {

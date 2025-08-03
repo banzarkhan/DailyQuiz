@@ -28,7 +28,9 @@ final class QuizViewModel: ObservableObject {
     }
     
     private func upsertQuiz() {
-        guard .quiz == viewState || .startAgain == viewState else { return }
+        guard viewState == .quiz || viewState == .startAgain else { return }
+        
+        quiz.date = Date()
         
         Task {
             switch viewState {
@@ -40,8 +42,6 @@ final class QuizViewModel: ObservableObject {
                 break
             }
         }
-        
-        viewState = .result
     }
     
     private func setResult(from question: Question) {
@@ -55,7 +55,10 @@ final class QuizViewModel: ObservableObject {
             let newQuiz = dataManager.createEntity(ofType: QuizEntity.self)
             newQuiz.create(from: quiz)
             try dataManager.saveEntity(newQuiz)
-            print("Successfully saved quiz! with id: \(String(describing: newQuiz.id))")
+            
+            await MainActor.run {
+                self.viewState = .result
+            }
         } catch {
             print("Error saving quiz: \(error.localizedDescription)")
         }
@@ -79,7 +82,10 @@ final class QuizViewModel: ObservableObject {
             }
 
             try dataManager.saveChanges()
-
+            
+            await MainActor.run {
+                self.viewState = .result
+            }
         } catch {
             print("Error updating quiz: \(error)")
         }
