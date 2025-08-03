@@ -2,23 +2,21 @@ import SwiftUI
 
 struct AlertView: View {
     @Binding var showAlert: Bool
-    var title: String
-    var message: String
-    var buttonLabel: String
+    var alertMessage: AlertMessage
     var action: () -> Void
     
     var body: some View {
         VStack(spacing: 40) {
             VStack(spacing: 12) {
-                Text(title)
+                Text(alertMessage.title)
                     .interBold(24)
                     .foregroundStyle(.black)
-                    Text(message)
+                Text(alertMessage.message)
                         .interBold(16)
                         .foregroundStyle(.black)
                         .multilineTextAlignment(.center)
             }
-                Button(buttonLabel) {
+            Button(alertMessage.buttonLabel) {
                     action()
                 }
                 .mainButtonStyle(state: .main)

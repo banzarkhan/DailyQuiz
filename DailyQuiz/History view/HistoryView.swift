@@ -18,12 +18,19 @@ struct HistoryView: View {
                 QuizListView(viewModel: viewModel)
             }
         }
+        .navigationDestination(isPresented: $viewModel.startQuiz, destination: {
+            QuizView(quiz: viewModel.quiz)
+                .navigationBarBackButtonHidden()
+                .onDisappear {
+                    Task {
+                        await viewModel.fetchQuizzes()
+                    }
+                }
+        })
         .background(.purpleAccent)
         .customAlert(
             showAlert: $viewModel.showAlert,
-            title: "Попытка удалена",
-            message: "Вы можете пройти викторину снова, когда будете готовы.",
-            buttonLabel: "Хорошо"){
+            alertMessage: viewModel.alertMessage){
                 viewModel.showAlert = false
             }
     }
@@ -36,7 +43,7 @@ struct HistoryView: View {
                     .multilineTextAlignment(.center)
                 
                 Button("Начать викторину") {
-                    
+                    viewModel.startQuizTapped()
                 }
                 .mainButtonStyle(state: .main)
             }

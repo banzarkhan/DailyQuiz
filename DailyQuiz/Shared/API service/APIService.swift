@@ -4,7 +4,7 @@ struct APIService {
     
     static let shared = APIService()
     
-    func fetchQuestions(amount: Int = 10, category: Int? = nil, difficulty: String? = nil) async throws -> [Question] {
+    func fetchQuestions(amount: Int = 5, category: Int? = nil, difficulty: String? = nil) async throws -> [Question] {
         var urlString = "https://opentdb.com/api.php?amount=\(amount)"
         if let category = category {
             urlString += "&category=\(category)"

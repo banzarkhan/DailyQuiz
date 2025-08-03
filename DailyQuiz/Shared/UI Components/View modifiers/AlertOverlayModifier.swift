@@ -2,9 +2,7 @@ import SwiftUI
 
 struct AlertOverlayModifier: ViewModifier {
     @Binding var showAlert: Bool
-    var title: String
-    var message: String
-    var buttonLabel: String
+    var alertMessage: AlertMessage
     var action: () -> Void
     
     func body(content: Content) -> some View {
@@ -14,9 +12,7 @@ struct AlertOverlayModifier: ViewModifier {
                     ZStack {
                         AlertView(
                             showAlert: $showAlert,
-                            title: title,
-                            message: message,
-                            buttonLabel: buttonLabel,
+                            alertMessage: alertMessage,
                             action: action
                         )
                         .padding(.horizontal)
@@ -32,17 +28,13 @@ struct AlertOverlayModifier: ViewModifier {
 extension View {
     func customAlert(
         showAlert: Binding<Bool>,
-        title: String,
-        message: String,
-        buttonLabel: String,
+        alertMessage: AlertMessage,
         action: @escaping () -> Void
     ) -> some View {
         self.modifier(
             AlertOverlayModifier(
                 showAlert: showAlert,
-                title: title,
-                message: message,
-                buttonLabel: buttonLabel,
+                alertMessage: alertMessage,
                 action: action
             )
         )
